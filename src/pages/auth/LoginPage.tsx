@@ -8,7 +8,9 @@ import {
   ArrowRight,
   UserCheck,
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  Lock,
+  Landmark
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { useToast } from '../../hooks/useToast';
@@ -50,13 +52,14 @@ export function LoginPage() {
   return (
     <div className="min-h-screen bg-[#F5F7FA] flex flex-col justify-between">
       {/* Top Govt Bar */}
-      <div className="bg-[#0F2747] text-white px-4 py-2 text-xs flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="bg-[#0F2747] text-white px-4 py-2.5 text-xs flex items-center justify-between border-b border-blue-950">
+        <div className="flex items-center gap-2 max-w-full truncate">
+          <Landmark className="w-4 h-4 text-amber-400 shrink-0" />
           <span className="font-bold tracking-wider">GOVERNMENT OF MADHYA PRADESH</span>
-          <span className="text-gray-400">|</span>
-          <span>Panchayat & Rural Development Department</span>
+          <span className="text-gray-400 hidden sm:inline">|</span>
+          <span className="text-gray-300 hidden sm:inline">Panchayat & Rural Development Department</span>
         </div>
-        <div className="flex items-center gap-2 text-amber-300 font-semibold">
+        <div className="flex items-center gap-2 text-amber-300 font-semibold shrink-0">
           <ShieldCheck className="w-4 h-4" />
           <span>Official Digital Demo</span>
         </div>
@@ -70,27 +73,27 @@ export function LoginPage() {
             <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md mx-auto flex items-center justify-center mb-3 border border-white/20 shadow-inner">
               <Building2 className="w-8 h-8 text-amber-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
               GRAMSETU
             </h1>
             <p className="text-sm font-medium text-blue-100 mt-1">
               "Panchayat ka har kaam, ek digital platform par."
             </p>
-            <div className="mt-3 inline-flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full text-xs text-amber-300 border border-amber-300/30">
-              <span>Gram Panchayat Rampur • Balaghat (M.P.)</span>
+            <div className="mt-3 inline-flex items-center gap-2 bg-black/20 px-3.5 py-1 rounded-full text-xs text-amber-300 border border-amber-300/30">
+              <span>Gram Panchayat Rampur • Waraseoni, Balaghat (M.P.)</span>
             </div>
           </div>
 
           <div className="p-6 sm:p-8 space-y-6">
             {/* Standard Mobile & OTP Form */}
             <form onSubmit={handleStandardLogin} className="space-y-4">
-              <div className="flex items-center justify-between text-xs text-gray-500 font-medium pb-1 border-b border-gray-100">
-                <span>Official Staff / Citizen Login</span>
+              <div className="flex items-center justify-between text-xs text-[#667085] font-medium pb-1.5 border-b border-[#E4E7EC]">
+                <span className="font-bold text-[#17212B]">Official Staff / Citizen Sign In</span>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => setLoginMode('otp')}
-                    className={`font-semibold ${loginMode === 'otp' ? 'text-[#1769AA]' : 'text-gray-400'}`}
+                    className={`font-bold transition-colors ${loginMode === 'otp' ? 'text-[#1769AA]' : 'text-[#667085] hover:text-[#17212B]'}`}
                   >
                     OTP
                   </button>
@@ -98,7 +101,7 @@ export function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setLoginMode('password')}
-                    className={`font-semibold ${loginMode === 'password' ? 'text-[#1769AA]' : 'text-gray-400'}`}
+                    className={`font-bold transition-colors ${loginMode === 'password' ? 'text-[#1769AA]' : 'text-[#667085] hover:text-[#17212B]'}`}
                   >
                     Password
                   </button>
@@ -106,11 +109,11 @@ export function LoginPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-[#17212B] mb-1">
                   Registered Mobile Number
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#667085]">
                     <Smartphone className="w-4 h-4" />
                   </div>
                   <input
@@ -119,24 +122,24 @@ export function LoginPage() {
                     onChange={(e) => setMobile(e.target.value)}
                     required
                     placeholder="Enter 10-digit mobile number"
-                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1769AA] focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#F5F7FA] border border-[#E4E7EC] rounded-lg text-sm text-[#17212B] focus:outline-none focus:border-[#1769AA] transition-colors"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block text-xs font-semibold text-gray-700">
+                  <label className="block text-xs font-semibold text-[#17212B]">
                     {loginMode === 'otp' ? 'One-Time Password (OTP)' : 'Security Password'}
                   </label>
                   {loginMode === 'otp' && (
-                    <span className="text-[11px] text-[#1769AA] font-semibold cursor-pointer">
-                      Resend OTP (Demo: 123456)
+                    <span className="text-xs text-[#1769AA] font-semibold cursor-pointer">
+                      Demo OTP: <strong className="font-mono">123456</strong>
                     </span>
                   )}
                 </div>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#667085]">
                     <KeyRound className="w-4 h-4" />
                   </div>
                   <input
@@ -145,7 +148,7 @@ export function LoginPage() {
                     onChange={(e) => setOtp(e.target.value)}
                     required
                     placeholder="Enter 6-digit OTP"
-                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1769AA] focus:border-transparent font-mono"
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#F5F7FA] border border-[#E4E7EC] rounded-lg text-sm text-[#17212B] focus:outline-none focus:border-[#1769AA] transition-colors font-mono"
                   />
                 </div>
               </div>
@@ -153,7 +156,7 @@ export function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#0F2747] hover:bg-[#1769AA] text-white text-sm font-bold rounded-lg shadow transition-all"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#0F2747] hover:bg-[#173359] text-white text-sm font-bold rounded-lg shadow-xs transition-colors"
               >
                 <span>Sign In to Panchayat Portal</span>
                 <ArrowRight className="w-4 h-4" />
@@ -161,29 +164,29 @@ export function LoginPage() {
             </form>
 
             {/* Quick 1-Click Role Login Section */}
-            <div className="pt-4 border-t border-gray-200">
+            <div className="pt-4 border-t border-[#E4E7EC]">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-xs font-bold text-[#17212B] uppercase tracking-wider flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                   Instant 1-Click Demo Login
                 </span>
-                <span className="text-[11px] text-gray-400">Click any role to test</span>
+                <span className="text-xs text-[#667085]">Switch roles instantly</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <button
                   type="button"
                   onClick={() => handleQuickDemoLogin('sarpanch', 'Sarpanch')}
-                  className="flex items-center gap-2.5 p-2.5 rounded-lg border border-amber-300 bg-amber-50/70 hover:bg-amber-100/90 text-left transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-amber-300 bg-amber-50/70 hover:bg-amber-100 text-left transition-colors group"
                 >
                   <div className="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs shrink-0">
                     सर
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-bold text-gray-900 group-hover:text-amber-900">
+                    <div className="text-xs font-bold text-[#17212B] group-hover:text-amber-900">
                       Login as Sarpanch
                     </div>
-                    <div className="text-[10px] text-gray-600 truncate">
+                    <div className="text-[11px] text-[#667085] truncate">
                       Smt. Sunita Bai (Full Admin)
                     </div>
                   </div>
@@ -192,16 +195,16 @@ export function LoginPage() {
                 <button
                   type="button"
                   onClick={() => handleQuickDemoLogin('secretary', 'Panchayat Secretary')}
-                  className="flex items-center gap-2.5 p-2.5 rounded-lg border border-blue-200 bg-blue-50/70 hover:bg-blue-100/90 text-left transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-blue-200 bg-blue-50/70 hover:bg-blue-100 text-left transition-colors group"
                 >
                   <div className="w-8 h-8 rounded-full bg-[#1769AA] text-white flex items-center justify-center font-bold text-xs shrink-0">
                     सचि
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-bold text-gray-900 group-hover:text-blue-900">
+                    <div className="text-xs font-bold text-[#17212B] group-hover:text-blue-900">
                       Login as Secretary
                     </div>
-                    <div className="text-[10px] text-gray-600 truncate">
+                    <div className="text-[11px] text-[#667085] truncate">
                       Shri Mahendra Singh (Admin)
                     </div>
                   </div>
@@ -210,16 +213,16 @@ export function LoginPage() {
                 <button
                   type="button"
                   onClick={() => handleQuickDemoLogin('panch', 'Ward Panch')}
-                  className="flex items-center gap-2.5 p-2.5 rounded-lg border border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100/90 text-left transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100 text-left transition-colors group"
                 >
                   <div className="w-8 h-8 rounded-full bg-[#16865B] text-white flex items-center justify-center font-bold text-xs shrink-0">
                     पंच
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-bold text-gray-900 group-hover:text-emerald-900">
+                    <div className="text-xs font-bold text-[#17212B] group-hover:text-emerald-900">
                       Login as Panch Member
                     </div>
-                    <div className="text-[10px] text-gray-600 truncate">
+                    <div className="text-[11px] text-[#667085] truncate">
                       Smt. Rekha (Ward 04)
                     </div>
                   </div>
@@ -228,17 +231,17 @@ export function LoginPage() {
                 <button
                   type="button"
                   onClick={() => handleQuickDemoLogin('technical_assistant', 'Technical Assistant')}
-                  className="flex items-center gap-2.5 p-2.5 rounded-lg border border-indigo-200 bg-indigo-50/70 hover:bg-indigo-100/90 text-left transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-indigo-200 bg-indigo-50/70 hover:bg-indigo-100 text-left transition-colors group"
                 >
                   <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
                     उप
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-bold text-gray-900 group-hover:text-indigo-900">
+                    <div className="text-xs font-bold text-[#17212B] group-hover:text-indigo-900">
                       Login as Sub-Engineer
                     </div>
-                    <div className="text-[10px] text-gray-600 truncate">
-                      Er. Amit Bisen (Projects)
+                    <div className="text-[11px] text-[#667085] truncate">
+                      Er. Amit Bisen (Works TA)
                     </div>
                   </div>
                 </button>
@@ -246,31 +249,31 @@ export function LoginPage() {
                 <button
                   type="button"
                   onClick={() => handleQuickDemoLogin('citizen', 'Citizen')}
-                  className="sm:col-span-2 flex items-center justify-between p-2.5 rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 text-left transition-colors group"
+                  className="sm:col-span-2 flex items-center justify-between p-3 rounded-xl border border-[#E4E7EC] bg-[#F5F7FA] hover:bg-gray-100 text-left transition-colors group"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#0F2747] text-white flex items-center justify-center font-bold text-xs shrink-0">
                       ना
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-gray-900">
+                      <div className="text-xs font-bold text-[#17212B]">
                         Login as Citizen (Public View)
                       </div>
-                      <div className="text-[10px] text-gray-500">
+                      <div className="text-[11px] text-[#667085]">
                         Shri Ramcharan Gautam — Track complaints, view Gram Sabha & schemes
                       </div>
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-800" />
+                  <ArrowRight className="w-4 h-4 text-[#667085] group-hover:text-[#17212B]" />
                 </button>
               </div>
             </div>
 
             {/* Disclaimer */}
-            <div className="p-3 bg-amber-50 rounded-lg border border-amber-200 text-[11px] text-amber-900 flex items-start gap-2">
+            <div className="p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div>
-                <strong>Confidential Demo Environment:</strong> All citizen names, complaint records and numbers are simulated mock data prepared specifically for the Panchayat presentation.
+                <strong>Confidential Demo Environment:</strong> All citizen names, complaint records and figures are simulated mock data prepared specifically for the Panchayat digital governance presentation.
               </div>
             </div>
           </div>
@@ -278,10 +281,9 @@ export function LoginPage() {
       </div>
 
       {/* Bottom Footer */}
-      <div className="bg-white border-t border-[#E4E7EC] py-3 px-4 text-center text-xs text-gray-500">
-        GRAMSETU Digital Panchayat Platform • National Informatics & e-Governance Best Practice
+      <div className="bg-white border-t border-[#E4E7EC] py-3.5 px-4 text-center text-xs text-[#667085]">
+        GRAMSETU Digital Panchayat Platform • Built for Panchayat & Rural Development Department
       </div>
     </div>
   );
 }
-

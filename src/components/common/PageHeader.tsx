@@ -1,10 +1,11 @@
 import React from 'react';
 import { cn } from '../../utils/cn';
 
-interface PageHeaderProps {
+export interface PageHeaderProps {
   title: string;
   description?: string;
   badge?: React.ReactNode;
+  statusBadge?: React.ReactNode;
   actions?: React.ReactNode;
   className?: string;
 }
@@ -13,9 +14,12 @@ export function PageHeader({
   title,
   description,
   badge,
+  statusBadge,
   actions,
   className
 }: PageHeaderProps) {
+  const displayBadge = statusBadge || badge;
+
   return (
     <div
       className={cn(
@@ -28,7 +32,7 @@ export function PageHeader({
           <h1 className="text-xl sm:text-2xl lg:text-[28px] font-extrabold text-[#17212B] tracking-tight leading-snug">
             {title}
           </h1>
-          {badge}
+          {displayBadge}
         </div>
         {description && (
           <p className="text-xs sm:text-sm text-[#667085] mt-1 font-normal max-w-3xl leading-relaxed">

@@ -290,7 +290,7 @@ export function WorkersPage() {
                       <div className="flex items-center gap-2 text-[11px] text-[#667085] mt-0.5">
                         <span className="flex items-center gap-1">
                           <MapPin className="w-3 h-3 text-[#1769AA]" />
-                          {worker.location}
+                          {worker.taskLocation}
                         </span>
                         <span>•</span>
                         <span className={`font-semibold ${
@@ -342,7 +342,7 @@ export function WorkersPage() {
                       onClick={() => {
                         setSelectedWorker(worker);
                         setAssignTask(worker.assignedTask);
-                        setAssignLocation(worker.location);
+                        setAssignLocation(worker.taskLocation);
                       }}
                       className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1769AA] font-bold rounded-lg text-xs transition-colors"
                     >

@@ -116,3 +116,4 @@ export function StatusBadge({ status, variant, className, dot = true }: StatusBa
     </span>
   );
 }
+

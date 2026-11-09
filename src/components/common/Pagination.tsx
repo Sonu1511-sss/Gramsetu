@@ -5,6 +5,7 @@ interface PaginationProps {
   currentPage: number;
   totalItems: number;
   pageSize: number;
+  totalPages?: number;
   onPageChange: (page: number) => void;
   className?: string;
   itemLabel?: string;
@@ -110,3 +111,4 @@ export function Pagination({
     </div>
   );
 }
+
