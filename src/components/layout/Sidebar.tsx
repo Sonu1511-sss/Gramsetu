@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
   Users,
@@ -19,7 +19,8 @@ import {
   Building2,
   ChevronLeft,
   ChevronRight,
-  ShieldCheck
+  ShieldCheck,
+  LogOut
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -47,8 +48,15 @@ interface NavSection {
 }
 
 export function Sidebar({ isOpen, onClose, isCollapsed = false, onToggleCollapse }: SidebarProps) {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const { lang } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login', { replace: true });
+    if (onClose) onClose();
+  };
 
   const navSections: NavSection[] = [
     {
@@ -339,6 +347,20 @@ export function Sidebar({ isOpen, onClose, isCollapsed = false, onToggleCollapse
             );
           })}
         </nav>
+
+        {/* Sign Out Button in Sidebar */}
+        <div className="p-3 border-t border-[#1A3860]">
+          <button
+            onClick={handleLogout}
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-rose-300 hover:text-white hover:bg-rose-950/40 border border-rose-900/40 transition-colors ${
+              isCollapsed ? 'justify-center px-0' : ''
+            }`}
+            title="Sign Out / Logout"
+          >
+            <LogOut className="w-4 h-4 shrink-0 text-rose-400" />
+            {!isCollapsed && <span>{lang === 'hi' ? 'लॉगआउट करें' : 'Sign Out'}</span>}
+          </button>
+        </div>
 
         {/* Sidebar Footer with Collapse Toggle on Desktop */}
         <div className="p-3 bg-[#0A1D36] border-t border-[#1A3860] flex items-center justify-between shrink-0">

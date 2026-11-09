@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import { LoginPage } from './pages/auth/LoginPage';
+import { ProtectedRoute } from './components/common/ProtectedRoute';
 import { DashboardPage } from './pages/dashboard/DashboardPage';
 import { MembersPage } from './pages/members/MembersPage';
 import { NoticesPage } from './pages/notices/NoticesPage';
@@ -21,30 +22,34 @@ export function App() {
   return (
     <ToastProvider>
       <Routes>
+        {/* Public Login Route */}
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="members" element={<MembersPage />} />
-          <Route path="notices" element={<NoticesPage />} />
-          <Route path="projects" element={<ProjectsPage />} />
-          <Route path="meetings" element={<MeetingsPage />} />
-          <Route path="complaints" element={<ComplaintsPage />} />
-          <Route path="schemes" element={<SchemesPage />} />
-          <Route path="workers" element={<WorkersPage />} />
-          <Route path="village" element={<VillagePage />} />
-          <Route path="documents" element={<DocumentsPage />} />
-          <Route path="reports" element={<ReportsPage />} />
-          <Route path="ai-intelligence" element={<AIIntelligencePage />} />
-          <Route path="notifications" element={<NotificationsPage />} />
-          <Route path="settings" element={<SettingsPage />} />
+        {/* Protected Routes: No access without login first */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="members" element={<MembersPage />} />
+            <Route path="notices" element={<NoticesPage />} />
+            <Route path="projects" element={<ProjectsPage />} />
+            <Route path="meetings" element={<MeetingsPage />} />
+            <Route path="complaints" element={<ComplaintsPage />} />
+            <Route path="schemes" element={<SchemesPage />} />
+            <Route path="workers" element={<WorkersPage />} />
+            <Route path="village" element={<VillagePage />} />
+            <Route path="documents" element={<DocumentsPage />} />
+            <Route path="reports" element={<ReportsPage />} />
+            <Route path="ai-intelligence" element={<AIIntelligencePage />} />
+            <Route path="notifications" element={<NotificationsPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+          </Route>
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Any unknown route redirects to /login */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </ToastProvider>
   );
 }
 
 export default App;
-

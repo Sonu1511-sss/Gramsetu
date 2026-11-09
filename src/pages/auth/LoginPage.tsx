@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Building2,
@@ -22,17 +22,24 @@ export function LoginPage() {
   const [loginMode, setLoginMode] = useState<'otp' | 'password'>('otp');
   const [loading, setLoading] = useState(false);
 
-  const { loginWithRole } = useAuth();
+  const { loginWithRole, loginWithCredentials, isAuthenticated } = useAuth();
   const { success } = useToast();
   const navigate = useNavigate();
+
+  // If already logged in, redirect to home
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleStandardLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await loginWithRole('sarpanch');
+      await loginWithCredentials(mobile, otp);
       success('Logged In Successfully', 'Welcome to Gramsetu Panchayat Platform');
-      navigate('/');
+      navigate('/', { replace: true });
     } finally {
       setLoading(false);
     }
@@ -43,7 +50,7 @@ export function LoginPage() {
     try {
       await loginWithRole(role);
       success(`Logged in as ${roleName}`, 'Demo Session Initialized');
-      navigate('/');
+      navigate('/', { replace: true });
     } finally {
       setLoading(false);
     }
